@@ -434,10 +434,23 @@ footer { text-align: center; color: var(--cp-text-soft); font-size: 0.85rem; mar
   ];
   const factEl = document.getElementById("fact");
   const factBtn = document.getElementById("factBtn");
-  let last = -1;
+  let bag = [];
+  let lastShown = null;
+  function refillBag() {
+    bag = facts.map((_, i) => i);
+    for (let i = bag.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [bag[i], bag[j]] = [bag[j], bag[i]];
+    }
+    // avoid repeating the just-shown fact across a reshuffle
+    if (bag.length > 1 && bag[bag.length - 1] === lastShown) {
+      [bag[0], bag[bag.length - 1]] = [bag[bag.length - 1], bag[0]];
+    }
+  }
   factBtn.addEventListener("click", () => {
-    let i; do { i = Math.floor(Math.random() * facts.length); } while (i === last && facts.length > 1);
-    last = i;
+    if (bag.length === 0) refillBag();
+    const i = bag.pop();
+    lastShown = i;
     factEl.style.opacity = 0;
     setTimeout(() => { factEl.textContent = facts[i]; factEl.style.opacity = 1; }, 150);
   });
