@@ -98,8 +98,8 @@ body {
   z-index: 2;
 }
 @media (max-width: 640px){ .hero { grid-template-columns: 1fr; } }
-.hero-photo { position: relative; min-height: 300px; }
-.hero-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.hero-photo { position: relative; min-height: 300px; background: var(--cp-surface-soft); }
+.hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
 .hero-body { padding: 2rem; display: flex; flex-direction: column; justify-content: center; }
 .pronoun-pill {
   align-self: flex-start;
@@ -136,6 +136,40 @@ body {
 .stat .lbl { font-size: 0.8rem; color: var(--cp-text-muted); margin-top: 0.35rem; }
 
 /* Tabs */
+/* What I do */
+.role-block {
+  background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 16px;
+  padding: 1.6rem 1.7rem; margin-top: 1rem;
+  box-shadow: 0 0 2px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.14);
+  border-left: 5px solid var(--cp-accent);
+}
+.role-block p { font-size: 1.02rem; color: var(--cp-text); }
+.role-block p + p { margin-top: 0.8rem; }
+.role-block .muted { color: var(--cp-text-muted); font-size: 0.95rem; }
+.chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.1rem; }
+.chip {
+  font-size: 0.82rem; font-weight: 600; color: var(--cp-accent);
+  background: var(--cp-accent-soft); border: 1px solid var(--cp-accent);
+  padding: 0.3rem 0.8rem; border-radius: 999px;
+}
+.support-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.85rem; margin-top: 1rem; }
+@media (max-width: 640px){ .support-grid { grid-template-columns: 1fr; } }
+.support-card {
+  background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 14px;
+  padding: 1.3rem 1.4rem;
+  box-shadow: 0 0 2px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.14);
+  border-top: 4px solid var(--cp-accent);
+}
+.support-card h3 {
+  font-size: 1.08rem; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem;
+}
+.support-card ul { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+.support-card li { position: relative; padding-left: 1.5rem; font-size: 0.94rem; color: var(--cp-text); }
+.support-card li::before {
+  content: "\2713"; position: absolute; left: 0; top: 0;
+  color: var(--cp-accent); font-weight: 800;
+}
+
 .section-title {
   font-size: 1.35rem; margin: 2.5rem 0 1rem; letter-spacing: -0.01em;
   padding-left: 0.75rem; border-left: 4px solid var(--cp-accent);
@@ -168,11 +202,11 @@ body {
 @media (max-width: 640px){ .gallery { grid-template-columns: repeat(2, 1fr); } }
 .gitem {
   position: relative; border-radius: 12px; overflow: hidden; cursor: pointer;
-  border: 1px solid var(--cp-border); aspect-ratio: 4/3;
+  border: 1px solid var(--cp-border); aspect-ratio: 1 / 1; background: var(--cp-surface-soft);
   box-shadow: 0 0 2px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.14);
 }
-.gitem img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease; }
-.gitem:hover img { transform: scale(1.06); }
+.gitem img { width: 100%; height: 100%; object-fit: contain; display: block; transition: transform 0.4s ease; }
+.gitem:hover img { transform: scale(1.04); }
 .gitem .cap {
   position: absolute; left: 0; right: 0; bottom: 0;
   background: linear-gradient(transparent, rgba(0,0,0,0.72));
@@ -201,7 +235,23 @@ body {
 .lightbox.open { display: flex; animation: fade 0.25s ease; }
 .lightbox img { max-width: 92vw; max-height: 82vh; border-radius: 12px; box-shadow: var(--cp-shadow); }
 .lightbox .lb-cap { position: absolute; bottom: 1.2rem; color: #fff; font-weight: 600; font-size: 1rem; text-align:center; width:100%; }
-.lb-close { position: absolute; top: 1rem; right: 1.3rem; color: #fff; font-size: 2.2rem; cursor: pointer; line-height: 1; }
+.lb-close { position: absolute; top: 1rem; right: 1.3rem; color: #fff; font-size: 2.2rem; cursor: pointer; line-height: 1; z-index: 2; }
+.lb-nav {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 3rem; height: 3rem; border-radius: 999px; border: none; cursor: pointer;
+  background: rgba(0,0,0,0.45); color: #fff; font-size: 1.6rem; line-height: 1;
+  display: flex; align-items: center; justify-content: center; z-index: 2;
+  transition: background 0.18s ease, transform 0.18s ease;
+}
+.lb-nav:hover { background: var(--cp-accent); transform: translateY(-50%) scale(1.08); }
+.lb-nav.prev { left: 1.1rem; }
+.lb-nav.next { right: 1.1rem; }
+.lb-counter {
+  position: absolute; top: 1.15rem; left: 1.3rem; color: #fff;
+  font-size: 0.9rem; font-weight: 600; background: rgba(0,0,0,0.4);
+  padding: 0.2rem 0.6rem; border-radius: 999px; z-index: 2;
+}
+@media (max-width: 640px){ .lb-nav { width: 2.5rem; height: 2.5rem; font-size: 1.3rem; } }
 
 /* Connect */
 .links { display: flex; gap: 0.85rem; flex-wrap: wrap; }
@@ -250,9 +300,36 @@ footer { text-align: center; color: var(--cp-text-soft); font-size: 0.85rem; mar
     <div class="stat" style="animation-delay:.35s"><div class="num">3</div><div class="lbl">Very good pets</div></div>
   </div>
 
+  <h2 class="section-title">What I do at Microsoft</h2>
+  <div class="role-block">
+    <p>I'm a <strong>Principal Product Manager on the Power CAT team</strong>, focused on <strong>Toolkits &amp; Partners</strong>. My work splits into two big areas &mdash; supporting our partner community, and helping the Toolkit team build and grow the Copilot Agent Kit.</p>
+  </div>
+  <div class="support-grid">
+    <div class="support-card">
+      <h3><span>&#129309;</span> How I support partners</h3>
+      <ul>
+        <li>Designing and facilitating training camps</li>
+        <li>Hosting community calls on educational topics</li>
+        <li>Holding 1:1 calls and orchestrating technical support</li>
+        <li>Organising and managing the community Teams channel</li>
+      </ul>
+    </div>
+    <div class="support-card">
+      <h3><span>&#129520;</span> How I support the Toolkit team</h3>
+      <ul>
+        <li>Evangelising and increasing adoption of the Copilot Agent Kit</li>
+        <li>Creating blog and video content</li>
+        <li>Educating internal and external customers on product features</li>
+        <li>Creating story narratives for kit functionality</li>
+        <li>Providing feedback to the development team</li>
+        <li>Co-designing new features for the kit</li>
+      </ul>
+    </div>
+  </div>
+
   <h2 class="section-title">A little about me</h2>
   <div class="tabs" id="tabs">
-    <button class="tab-btn active" data-tab="work">Work</button>
+    <button class="tab-btn active" data-tab="work">Career</button>
     <button class="tab-btn" data-tab="life">Life</button>
     <button class="tab-btn" data-tab="obsessions">Obsessions</button>
   </div>
@@ -315,8 +392,11 @@ footer { text-align: center; color: var(--cp-text-soft); font-size: 0.85rem; mar
 </div>
 
 <div class="lightbox" id="lightbox">
+  <span class="lb-counter" id="lbCounter"></span>
   <span class="lb-close" id="lbClose">&times;</span>
+  <button class="lb-nav prev" id="lbPrev" aria-label="Previous photo">&#8249;</button>
   <img id="lbImg" src="" alt="">
+  <button class="lb-nav next" id="lbNext" aria-label="Next photo">&#8250;</button>
   <div class="lb-cap" id="lbCap"></div>
 </div>
 
@@ -358,17 +438,34 @@ footer { text-align: center; color: var(--cp-text-soft); font-size: 0.85rem; mar
   const lb = document.getElementById("lightbox");
   const lbImg = document.getElementById("lbImg");
   const lbCap = document.getElementById("lbCap");
+  const lbCounter = document.getElementById("lbCounter");
+  const items = Array.from(document.querySelectorAll("#gallery .gitem"));
+  let current = 0;
+
+  function showAt(i) {
+    current = (i + items.length) % items.length;
+    const item = items[current];
+    lbImg.src = item.dataset.src;
+    lbCap.innerHTML = item.dataset.cap;
+    lbCounter.textContent = (current + 1) + " / " + items.length;
+  }
   document.getElementById("gallery").addEventListener("click", (e) => {
     const item = e.target.closest(".gitem");
     if (!item) return;
-    lbImg.src = item.dataset.src;
-    lbCap.innerHTML = item.dataset.cap;
+    showAt(items.indexOf(item));
     lb.classList.add("open");
   });
   function closeLb(){ lb.classList.remove("open"); lbImg.src = ""; }
   document.getElementById("lbClose").addEventListener("click", closeLb);
+  document.getElementById("lbNext").addEventListener("click", (e) => { e.stopPropagation(); showAt(current + 1); });
+  document.getElementById("lbPrev").addEventListener("click", (e) => { e.stopPropagation(); showAt(current - 1); });
   lb.addEventListener("click", (e) => { if (e.target === lb) closeLb(); });
-  document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeLb(); });
+  document.addEventListener("keydown", (e) => {
+    if (!lb.classList.contains("open")) return;
+    if (e.key === "Escape") closeLb();
+    else if (e.key === "ArrowRight") showAt(current + 1);
+    else if (e.key === "ArrowLeft") showAt(current - 1);
+  });
 </script>
 </body>
 </html>
